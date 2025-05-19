@@ -16,7 +16,7 @@ else:
 
 
 selected_insurance_plans = st.multiselect('Select Insurance Plan:',options=['Whole Life Insurance',
-        '5-Year Deferred Whole Life Insurance','10-Year Term Insurance','20-Year Term Insurance','10-Year Deferred Whole Life Insurance',
+        '10-Year Term Insurance','20-Year Term Insurance','5-Year Deferred Whole Life Insurance','10-Year Deferred Whole Life Insurance',
         '20-Year Deferred Whole Life Insurance'],default='Whole Life Insurance')
 selected_age = st.slider('Select Age:',20,100)
 selected_benefit = st.slider('Select Benefit (Lump Sum for Life Insurance):',0,1000000,step=1000)
