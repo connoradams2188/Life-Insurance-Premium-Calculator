@@ -25,46 +25,46 @@ yield_ratio = desired_yield + 1
 
 def calculate_nsp_with_table(df, age, benefit, plan_name):
     row = df[df['x'] == age]
-
+    nsp = 0
+    match plan_name:
+        case "Whole Life Insurance":
+            Ax_value = row['Ax'].values[0]
+            äx_value = row['äx'].values[0]
+            nsp = benefit * (Ax_value / äx_value)
+        case '10-Year Term Insurance':
+            Ax_value = row['Ax:1̅0̅|'].values[0]
+            äx_value = row['äx:1̅0̅|'].values[0]
+            nsp = benefit * (Ax_value / äx_value)
+        case '20-Year Term Insurance':
+            Ax_value = row['Ax:2̅0̅|'].values[0]
+            äx_value = row['äx:2̅0̅|'].values[0]
+            nsp = benefit * (Ax_value / äx_value)
+        case '5-Year Deferred Whole Life Insurance':
+            Ax_value = df[df['x'] == (age + 5)]['Ax'].values[0]
+            nex_value = row['5Ex'].values[0]
+            DAx_value = Ax_value * nex_value
+            äx_value = row['äx'].values[0]
+            nsp = (DAx_value * benefit) / äx_value
+        case '10-Year Deferred Whole Life Insurance':
+            Ax_value = df[df['x'] == (age + 10)]['Ax'].values[0]
+            nex_value = row['10Ex'].values[0]
+            DAx_value = Ax_value * nex_value
+            äx_value = row['äx'].values[0]
+            nsp = (DAx_value * benefit) / äx_value
+        case '20-Year Deferred Whole Life Insurance':
+            Ax_value = df[df['x'] == (age + 20)]['Ax'].values[0]
+            nex_value = row['20Ex'].values[0]
+            DAx_value = Ax_value * nex_value
+            äx_value = row['äx'].values[0]
+            nsp = (DAx_value * benefit) / äx_value
+        case _:
+            return None
     if row.empty:
         return None
-
-    if plan_name == 'Whole Life Insurance':
-        Ax_value = row['Ax'].values[0]
-        äx_value = row['äx'].values[0]
-        nsp = benefit * (Ax_value / äx_value)
-    elif plan_name == '10-Year Term Insurance':
-        Ax_value = row['Ax:1̅0̅|'].values[0]
-        äx_value = row['äx:1̅0̅|'].values[0]
-        nsp = benefit * (Ax_value / äx_value)
-    elif plan_name == '20-Year Term Insurance':
-        Ax_value = row['Ax:2̅0̅|'].values[0]
-        äx_value = row['äx:2̅0̅|'].values[0]
-        nsp = benefit * (Ax_value / äx_value)
-    elif plan_name == '5-Year Deferred Whole Life Insurance':
-        Ax_value = df[df['x'] == (age + 5)]['Ax'].values[0]
-        nex_value = row['5Ex'].values[0]
-        DAx_value = Ax_value * nex_value
-        äx_value = row['äx'].values[0]
-        nsp = (DAx_value * benefit)/ äx_value
-    elif plan_name == '10-Year Deferred Whole Life Insurance':
-        Ax_value = df[df['x'] == (age + 10)]['Ax'].values[0]
-        nex_value = row['10Ex'].values[0]
-        DAx_value = Ax_value * nex_value
-        äx_value = row['äx'].values[0]
-        nsp = (DAx_value * benefit) / äx_value
-    elif plan_name == '20-Year Deferred Whole Life Insurance':
-        Ax_value = df[df['x'] == (age + 20)]['Ax'].values[0]
-        nex_value = row['20Ex'].values[0]
-        DAx_value = Ax_value * nex_value
-        äx_value = row['äx'].values[0]
-        nsp = (DAx_value * benefit) / äx_value
-
     else:
-        return None
+        return round(nsp,2)
 
 
-    return round(nsp, 2)
 
 
 # Calculate premiums
