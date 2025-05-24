@@ -70,12 +70,7 @@ def calculate_nsp_with_table(df, age, benefit, plan_name):
 # Calculate premiums
 premiums = {}
 for plan in selected_insurance_plans:
-    if "Whole Life" in plan:
-        premiums[plan] = calculate_nsp_with_table(df, selected_age, selected_benefit, plan) * yield_ratio
-    elif "10-Year Term" in plan:
-        premiums[plan] = calculate_nsp_with_table(df, selected_age, selected_benefit, plan) * yield_ratio
-    elif "20-Year Term" in plan:
-        premiums[plan] = calculate_nsp_with_table(df, selected_age, selected_benefit, plan) * yield_ratio
+    premiums[plan] = calculate_nsp_with_table(df, selected_age, selected_benefit, plan) * yield_ratio
 
 # Display results
 st.subheader("Annual Premium Calculation Results")
